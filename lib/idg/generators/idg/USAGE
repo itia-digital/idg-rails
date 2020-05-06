@@ -1,0 +1,9 @@
+Description:
+    This creates default scaffold templates for IDG. After command you may visit "lib/templates/rails/"
+    Then create tour own scaffolds or controllers and you're done!
+
+Example:
+    rails generate idg
+
+    This will create:
+        lib/templates/rails/scaffold_controller/api_controller.rb

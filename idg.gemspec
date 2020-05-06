@@ -7,11 +7,11 @@ require "idg/version"
 Gem::Specification.new do |spec|
   spec.name        = "idg"
   spec.version     = Idg::VERSION
-  spec.authors     = ["Manolo Martinez"]
-  spec.email       = ["rosso.neeri@gmail.com"]
-  spec.homepage    = "TODO"
-  spec.summary     = "TODO: Summary of Idg."
-  spec.description = "TODO: Description of Idg."
+  spec.authors     = ["ITIA DIGITAL"]
+  spec.email       = ["manolo@itia.mx"]
+  spec.homepage    = "https://github.com/manolo07/idg-api-rails"
+  spec.summary     = "Rails plugin for ITIA DIGITAL projects."
+  spec.description = "Rails plugin for ITIA DIGITAL projects"
   spec.license     = "MIT"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'

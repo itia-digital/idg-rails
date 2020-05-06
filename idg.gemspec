@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.version     = Idg::VERSION
   spec.authors     = ["ITIA DIGITAL"]
   spec.email       = ["manolo@itia.mx"]
-  spec.homepage    = "https://github.com/manolo07/idg-api-rails"
+  spec.homepage    = "https://github.com/manolo07/idg"
   spec.summary     = "Rails plugin for ITIA DIGITAL projects."
   spec.description = "Rails plugin for ITIA DIGITAL projects"
   spec.license     = "MIT"
@@ -25,7 +25,7 @@ Gem::Specification.new do |spec|
 
   spec.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
 
-  spec.add_dependency "rails", "~> 6.0.2", ">= 6.0.2.2"
+  spec.add_dependency "rails", "~> 6.0.0", ">= 6.0.0.0"
 
   spec.add_development_dependency "sqlite3"
 end

@@ -1,0 +1,4 @@
+user:
+  generator: user_profile
+    user:references:required
+    about_me:text:required

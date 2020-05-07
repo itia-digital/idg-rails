@@ -1,0 +1,4 @@
+#!/usr/bin/env ruby
+require 'idg/cli/cli'
+
+Idg::CLI.start

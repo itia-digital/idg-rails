@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    idg (0.2.9)
+    idg (1.1.0)
       rails (~> 6.0.0, >= 6.0.0.0)
 
 GEM

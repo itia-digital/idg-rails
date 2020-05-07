@@ -4,7 +4,7 @@ require_dependency "<%= namespaced_path %>/application_controller"
 <% end -%>
 <% module_namespacing do -%>
 class <%= controller_class_name %>Controller < ApplicationController
-  include V1::Listable
+  include Idg::ListableController
 
   # GET <%= route_url %>
   def index

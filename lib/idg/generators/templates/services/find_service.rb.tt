@@ -1,0 +1,33 @@
+##
+# ==== How does it works?
+# As a common method
+#
+# ´´´ruby
+#      r = <%= controller_class_name %>::FindService.call(params)
+# ´´´
+#
+# As a block
+#
+# ´´´ruby
+#     <%= controller_class_name %>::FindService
+#         .call(params) do |r|
+#       ...your may write code here
+#     end
+# ´´´
+#
+<% module_namespacing do -%>
+  class <%= controller_class_name %>::FindService < Idg::FindService
+
+    def initialize(id)
+      super(<%= controller_class_name.singularize %>, id)
+    end
+
+    def call(&block)
+      # Your code to query the fetch...
+      # e.g.:
+      #    @fetch = @fetch.joins(:table)
+
+      super(&block)
+    end
+  end
+<% end -%>

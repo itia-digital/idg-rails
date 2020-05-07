@@ -1,0 +1,43 @@
+##
+# ==== How does it works?
+# As a common method
+#
+# ´´´ruby
+#      r = <%= controller_class_name %>::FiltersService.call(params)
+# ´´´
+#
+# As a block
+#
+# ´´´ruby
+#     <%= controller_class_name %>::FiltersService
+#         .call(params) do |r|
+#       ...your may write code here
+#     end
+# ´´´
+#
+<% module_namespacing do -%>
+  class <%= controller_class_name %>::FiltersService < <%= controller_class_name %>::FetchService
+
+    def initialize(params)
+      super(params)
+      @apply_order = false
+  end
+
+    def call(&block)
+      # Your code to query the fetch...
+      # e.g.:
+      #    @fetch = @fetch.joins(:table)
+
+      super(&block)
+
+      {
+        created_at: @fetch.select("distinct to_char(created_at, 'YYYY-MM-DD') created_at")
+            .order('created_at desc').limit(7).map {|o| { :id => o.created_at, :title => o.created_at.strftime("%F") } }<% if versionist? -%>,
+        by: @fetch.joins("inner join versions v on <%= plural_table_name %>.id = v.item_id and item_type = '<%= controller_class_name.singularize %>' and event = 'create'")
+            .select('distinct v.whodunnit').map {|o| { :id => o.whodunnit, :title => o.whodunnit } }
+  <% end -%>
+
+      }
+    end
+  end
+<% end -%>

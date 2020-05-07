@@ -1,0 +1,44 @@
+##
+# ==== How does it works?
+# As a common method
+#
+# ´´´ruby
+#      r = <%= controller_class_name %>::UpdateService.call(params[:id], subject_params)
+# ´´´
+#
+# As a block
+#
+# ´´´ruby
+#      r = <%= controller_class_name %>::UpdateService
+#         .new(:params)
+#         .call do |r|
+#       ...your code here
+#     end
+# ´´´
+#
+<% module_namespacing do -%>
+    class <%= controller_class_name %>::UpdateService < Idg::FindService
+      attr_reader :new_attrs
+
+      def initialize(id, params)
+        super(<%= controller_class_name.singularize %>, id)
+        @new_attrs = params
+      end
+
+      def call(&block)
+
+        ActiveRecord::Base.transaction do
+          @subject.update(@new_attrs)
+        rescue ActiveRecord::InvalidForeignKey => e
+          @subject.errors.add(:id, 'Linked references found')
+        rescue StandardError => e
+          @subject.errors.add(:id, e.to_s)
+          raise ActiveRecord::Rollback
+        ensure
+          yield(@subject) if block_given?
+          return @subject
+        end
+
+      end
+    end
+<% end -%>

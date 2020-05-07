@@ -1,3 +1,3 @@
 module Idg
-  VERSION = '0.2.11'
+  VERSION = '1.0.0'
 end

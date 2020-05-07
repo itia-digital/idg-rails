@@ -28,6 +28,13 @@ rails g idg:install
 This creates default scaffold templates for IDG. After command you may visit ```lib/templates/rails/```
 Then create tour own scaffolds or controllers and you're done!
 
+#### Implementation
+
+After install just need to run default ```rails g scaffold..``` to implement Fetch, Filter, Find, Insert, Update and Delete services for the model you would link to implement. 
+
+Note:
+If you include [Versionist gem](https://github.com/bploetz/versionist) in your project it will include a ```:by``` filter for your records
+
 ## Contributing
 Special thanks to [this post](https://stackoverflow.com/a/45245960/4641125)
 

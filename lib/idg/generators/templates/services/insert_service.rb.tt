@@ -1,0 +1,39 @@
+##
+# ==== How does it works?
+# As a common method
+#
+# ´´´ruby
+#      r = <%= controller_class_name %>::InsertService.call(subject_params)
+# ´´´
+#
+# As a block
+#
+# ´´´ruby
+#     <%= controller_class_name %>::InsertService
+#         .call(:params) do |r|
+#       ...your code here
+#     end
+# ´´´
+#
+<% module_namespacing do -%>
+    class <%= controller_class_name %>::InsertService < Idg::Service
+
+      def initialize(params)
+        @subject = <%= controller_class_name.singularize %>.new params
+      end
+
+      def call(&block)
+
+        ActiveRecord::Base.transaction do
+          @subject.save
+        rescue StandardError => e
+          @subject.errors.add(:id, e.to_s)
+          raise ActiveRecord::Rollback
+        ensure
+          yield(@subject) if block_given?
+          return @subject
+        end
+
+      end
+    end
+<% end -%>

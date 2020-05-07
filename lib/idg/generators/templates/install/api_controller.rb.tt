@@ -1,0 +1,73 @@
+<% if namespaced? -%>
+require_dependency "<%= namespaced_path %>/application_controller"
+
+<% end -%>
+<% module_namespacing do -%>
+class <%= controller_class_name %>Controller < ApplicationController
+  include V1::Listable
+
+  # GET <%= route_url %>
+  def index
+    render :json => <%= controller_class_name %>::FetchService.call(params), status: :ok
+  end
+
+  # GET <%= route_url %>/:id
+  def show
+    render :json => <%= controller_class_name %>::FindService.call(params[id]), status: :ok
+  end
+
+  # POST <%= route_url %>
+  def create
+    subject = <%= controller_class_name %>::InsertService.call(subject_params)
+    
+    if subject.errors.present?
+      render json: subject.errors, status: :unprocessable_entity
+    else
+      render json: subject, status: :created
+    end
+  end
+
+  # PATCH/PUT <%= route_url %>/:id
+  def update
+    subject = <%= controller_class_name %>::UpdateService.call(subject_params)
+
+    if subject.errors.present?
+      render json: subject.errors, status: :unprocessable_entity
+    else
+      render json: subject, status: :accepted
+    end
+  end
+
+  # DELETE <%= route_url %>/:id
+  def destroy
+    subject = <%= controller_class_name %>::DeleteService.call(subject_params)
+
+    if subject.errors.present?
+      render json: subject.errors, status: :unprocessable_entity
+    else
+      render json: subject, status: :accepted
+    end
+  end
+
+  # GET <%= route_url %>/count
+  def count
+    render :json => <%= controller_class_name %>::FetchService.call(params).count, status: :ok
+  end
+
+  # GET <%= route_url %>/filters
+  def filters
+    render :json => <%= controller_class_name %>::FiltersService.call(params).to_json, status: :ok
+  end
+
+
+  private
+    # Only allow a list of trusted parameters through.
+    def subject_params
+      <%- if attributes_names.empty? -%>
+      params.fetch(:<%= singular_table_name %>, {})
+      <%- else -%>
+      params.require(:<%= singular_table_name %>).permit(<%= permitted_params %>)
+      <%- end -%>
+    end
+end
+<% end -%>

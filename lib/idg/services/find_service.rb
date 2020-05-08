@@ -19,7 +19,7 @@ module Idg
     end
 
     def call(&block)
-      @fetch.find(@id)
+      @subject = @fetch.find(@id)
       yield(@subject) if block_given?
       @subject
     end

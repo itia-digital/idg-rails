@@ -19,14 +19,13 @@ module Idg
     def g(*params)
 
       if params.length == 0
-        puts 'I D G : Please include a valid generator, checkout `rails g -h`'
+        puts 'I D G : Please include a valid generator.'
+        system('rails g -h')
       else
         rails_cmd = "rails g #{params[0]}"
 
         if options[:yml]
           run_yaml(options[:yml], rails_cmd)
-        elsif params.length == 1
-          puts "I D G : No [#{rails_cmd}] params present"
         else
           cmd_params = params[1, params.length - 1].join(' ').to_s
           run_rails_commands(rails_cmd, cmd_params)

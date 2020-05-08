@@ -1,12 +1,7 @@
 module Idg
   class Railtie < ::Rails::Railtie
-    # Register: install generator
-    require "#{ File.dirname __dir__ }/idg/generators/install_generator.rb"
-    # Register: services generator
-    require "#{ File.dirname __dir__ }/idg/generators/services_generator.rb"
-    # Register concerns
-    require "#{ File.dirname __dir__ }/idg/concerns/models/string_enum"
-    require "#{ File.dirname __dir__ }/idg/concerns/controllers/listable_controller"
+
+    require "#{ File.dirname __dir__ }/idg/init.rb"
 
     # TODO Fix warning
     # Deprecation warning: Expected boolean default value for '--helper'; got :services (string).

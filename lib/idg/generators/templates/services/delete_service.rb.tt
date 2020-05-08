@@ -24,16 +24,19 @@
     end
 
     def call(&block)
+      super do
 
-      ActiveRecord::Base.transaction do
-        @subject.destroy
-      rescue ActiveRecord::InvalidForeignKey => e
-        @subject.errors.add(:id, 'Linked references found')
-      rescue StandardError => e
-        @subject.errors.add(:id, e.to_s)
-      ensure
-        yield(@subject) if block_given?
-        return @subject
+        ActiveRecord::Base.transaction do
+          @subject.destroy
+        rescue ActiveRecord::InvalidForeignKey => e
+          @subject.errors.add(:id, 'Linked references found')
+        rescue StandardError => e
+          @subject.errors.add(:id, e.to_s)
+          raise ActiveRecord::Rollback
+        ensure
+          yield(@subject) if block_given?
+          return @subject
+        end
       end
 
     end

@@ -54,6 +54,12 @@ So the command would be
 > idg g scaffold --yml=user.yml
 ```
 
+
+## Publishing
+```console
+gem build idg.gemspec
+gem push --key github --host https://rubygems.pkg.github.com/ITIA-DIGITAL idg-VERSION.gem
+```
 ## Contributing
 Special thanks to:
  - For install generator: [this post](https://stackoverflow.com/a/45245960/4641125)

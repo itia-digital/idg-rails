@@ -19,7 +19,7 @@
   class <%= controller_class_name %>::FetchService < Idg::FetchService
 
     def initialize(params)
-      super(<%= controller_class_name.singularize %>.all, params)
+      super(<%= controller_class_name.singularize %>.all, params: params)
     end
 
     def call(&block)

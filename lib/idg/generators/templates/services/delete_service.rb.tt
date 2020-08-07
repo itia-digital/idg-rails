@@ -33,11 +33,11 @@
         rescue StandardError => e
           @subject.errors.add(:id, e.to_s)
           raise ActiveRecord::Rollback
-        ensure
-          yield(@subject) if block_given?
-          return @subject
         end
       end
+
+      yield(@subject) if block_given?
+      return @subject
 
     end
   end

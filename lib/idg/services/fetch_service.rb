@@ -33,7 +33,7 @@ module Idg
     def call
 
       # String search query
-      if @params[:q]
+      if @params[:q].present?
         @fetch = @fetch.where(
           @search_columns.map { |qc| "upper(#{qc}) like :q" }.join(" or "),
           q: "%#{@params[:q].upcase}%"
@@ -41,7 +41,7 @@ module Idg
       end
 
       # Create at search query
-      if @params[:created_at]
+      if @params[:created_at].present?
         @fetch = @fetch.where(
           "to_char(#{@fetch.table_name}.created_at, 'YYYY-MM-DD') = ?",
           @params[:created_at]
